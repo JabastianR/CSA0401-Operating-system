@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <pthread.h>
+#include <unistd.h>
+
+void* task1(void* arg) {
+    printf("Task 1 is running in thread ID: %ld\n", pthread_self());
+    sleep(1);
+    printf("Task 1 completed.\n");
+    return NULL;
+}
+
+void* task2(void* arg) {
+    printf("Task 2 is running in thread ID: %ld\n", pthread_self());
+    sleep(1);
+    printf("Task 2 completed.\n");
+    return NULL;
+}
+
+int main() {
+    pthread_t t1, t2;
+    printf("Main thread started.\n");
+    pthread_create(&t1, NULL, task1, NULL);
+    pthread_create(&t2, NULL, task2, NULL);
+    pthread_join(t1, NULL);
+    pthread_join(t2, NULL);
+    printf("All threads finished execution.\n");
+    return 0;
+}
