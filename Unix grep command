@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    FILE *fp;
+    char filename[30], word[30], line[100];
+
+    printf("Enter filename: ");
+    scanf("%s", filename);
+    printf("Enter word to search: ");
+    scanf("%s", word);
+
+    fp = fopen(filename, "r");
+    if (!fp) {
+        perror("File open failed");
+        return 1;
+    }
+
+    printf("\nLines containing '%s':\n", word);
+    while (fgets(line, sizeof(line), fp)) {
+        if (strstr(line, word))
+            printf("%s", line);
+    }
+
+    fclose(fp);
+    return 0;
+}
